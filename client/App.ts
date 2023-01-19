@@ -9,10 +9,7 @@ const ROUTE = {
 
 class App extends Component {
   componentDidMount() {
-    window.addEventListener(
-      "locationchange",
-      this.renderChildComponent.bind(this)
-    );
+    window.addEventListener("pushstate", this.renderChildComponent.bind(this));
     window.addEventListener("popstate", this.renderChildComponent.bind(this));
   }
 
