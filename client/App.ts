@@ -1,24 +1,19 @@
 import Component from "./core/Component";
 import MainPage from "./pages/MainPage";
+import AboutPage from "./pages/AboutPage";
 
 const ROUTE = {
   MAIN: "/",
-  MAP: "/map",
-  LOGIN: "/login",
+  ABOUT: "/about",
 };
 
 class App extends Component {
   componentDidMount() {
     window.addEventListener(
       "locationchange",
-      this.handlelocationChange.bind(this)
+      this.renderChildComponent.bind(this)
     );
-  }
-
-  handlelocationChange({ detail }) {
-    const { targetUrl } = detail;
-    window.history.pushState(undefined, "타이틀", targetUrl);
-    this.renderChildComponent();
+    window.addEventListener("popstate", this.renderChildComponent.bind(this));
   }
 
   renderChildComponent() {
@@ -26,6 +21,9 @@ class App extends Component {
     switch (pathname) {
       case ROUTE.MAIN:
         new MainPage(this.$target);
+        break;
+      case ROUTE.ABOUT:
+        new AboutPage(this.$target);
         break;
       default:
         new MainPage(this.$target);

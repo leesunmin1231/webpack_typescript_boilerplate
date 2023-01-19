@@ -1,24 +1,26 @@
 import Component from "../core/Component";
 
 class MainPage extends Component {
-  protected componentDidMount(): void {
-    this.testApi();
-  }
-  async testApi() {
-    const response = await fetch("/api/test-api", { method: "GET" });
-
-    const { check } = await response.json();
-    this.setState({ check });
+  protected setEvent(): void {
+    const aboutButton = document.getElementById("go-to-about");
+    aboutButton.addEventListener("click", () => {
+      window.history.pushState(undefined, "", "/about");
+      const locationChange = new CustomEvent("locationchange", {
+        composed: true,
+      });
+      window.dispatchEvent(locationChange);
+    });
   }
   template() {
     return `
-      <header class="header">
-        header
+      <header id="top-bar">
+        Todo
       </header>
       <main>
-        ${this.state.check}
+        <input type="text" placeholder="할 일을 입력하세요."/>
+        
       </main>
-      <footer>footer</footer>
+      <button type="button" id="go-to-about">about</button>
     `;
   }
 }
