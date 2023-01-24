@@ -16,7 +16,7 @@ class AboutPage extends Component {
     const { check } = await response.json();
     this.setState({ check });
   }
-  template() {
+  render() {
     return `
       <div>
         <header>

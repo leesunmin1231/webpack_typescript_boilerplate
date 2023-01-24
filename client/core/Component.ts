@@ -4,7 +4,7 @@ export default class Component {
 
   constructor(protected $target: HTMLElement, protected props?: any) {
     this.setup();
-    this.render();
+    this._render();
     this.setEvent();
     this.renderChildComponent();
     this.componentDidMount();
@@ -17,19 +17,20 @@ export default class Component {
     this.state = { ...this.state, ...newState };
     this.update();
   }
-  protected template() {
-    return ``;
-  }
   protected render() {
-    this.$target.innerHTML = this.template();
-  }
-  protected update() {
-    this.render();
-    this.setEvent();
-    this.renderChildComponent();
-    this.componentDidUpdate();
+    return ``;
   }
   protected componentDidMount() {}
   protected componentDidUpdate() {}
   protected renderChildComponent() {}
+
+  private _render() {
+    this.$target.innerHTML = this.render();
+  }
+  protected update() {
+    this._render();
+    this.setEvent();
+    this.renderChildComponent();
+    this.componentDidUpdate();
+  }
 }
